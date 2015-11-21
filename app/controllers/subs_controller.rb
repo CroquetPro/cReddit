@@ -1,7 +1,7 @@
 class SubsController < ApplicationController
 
-    before_action :require_current_user, only: [:new]
-    before_action :require_moderator, only: [:edit, :destroy]
+    before_action :require_current_user!, only: [:new]
+    before_action :require_moderator!, only: [:edit, :destroy]
 
     def new
       @sub = Sub.new
@@ -50,24 +50,15 @@ class SubsController < ApplicationController
       end
     end
 
-    private
-    def require_current_user
-      if current_user.nil?
-        flash[:notice] = ['Must be signed in to post/edit']
-        redirect_to subs_url
-      end
+    def sub_params
+      params.require(:sub).permit(:title, :description)
     end
 
-    def require_moderator
+    private
+    def require_moderator!
       if current_user.id != self.moderator_id
         flash[:notice] = ['Must be moderator to edit this sub']
         redirect_to subs_url
       end
     end
-
-    def sub_params
-      params.require(:sub).permit(:title, :description)
-    end
-
-
 end

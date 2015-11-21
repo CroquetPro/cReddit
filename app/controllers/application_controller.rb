@@ -18,4 +18,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(session_token: session[:session_token])
   end
 
+  private
+
+  def require_current_user!
+    if current_user.nil?
+      flash[:notice] = ['Must be signed in to post/edit']
+      redirect_to subs_url
+    end
+  end
 end

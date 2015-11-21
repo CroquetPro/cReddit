@@ -22,5 +22,4 @@ class SessionsController < ApplicationController
     logout!(@user)
     redirect_to new_session_url
   end
-
 end
