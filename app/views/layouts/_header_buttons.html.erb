@@ -1,0 +1,12 @@
+
+<% if current_user.nil? %>
+
+  <%= button_to 'Log in', new_session_url, method: :get %>
+  <%= button_to 'Register', new_user_url, method: :get %>
+
+<% else %>
+
+  <%= current_user.user_name %>
+  <%= button_to 'Log out', session_url, method: :delete %>
+
+<% end %>

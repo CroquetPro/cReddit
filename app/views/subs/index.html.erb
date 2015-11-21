@@ -1,0 +1,9 @@
+<h1>Subs Bitch!</h1>
+
+<% Sub.all.each do |sub| %>
+  <%= link_to sub.title, sub_url(sub) %><br>
+<% end %>
+  <br><br>
+  <% if current_user %>
+    <%= button_to "New Sub", new_sub_url, method: :get %>
+  <% end %>

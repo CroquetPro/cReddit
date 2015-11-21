@@ -1,0 +1,16 @@
+<h1> <%= @sub.title %> </h1>
+
+<% if current_user && current_user.id == @sub.moderator_id %>
+  <%= button_to 'Edit', edit_sub_url(@sub), method: :get %>
+  <%= button_to 'Delete', sub_url(@sub), method: :delete %>
+<% end %>
+
+<% @sub.posts.each do |post| %>
+  <%= link_to post.title, post_url(post) %>
+  <%= post.author.user_name %>
+  <br>
+<% end %>
+
+<% if current_user %>
+  <%= button_to 'New Post', new_post_url, method: :get %>
+<% end %>
